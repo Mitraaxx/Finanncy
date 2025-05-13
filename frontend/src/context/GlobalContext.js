@@ -11,24 +11,101 @@ export const GlobalProvider = ({children}) =>{
     const [expense, setExpenses] = useState([])
     const [error, setError] = useState(null)
 
+    const getToken = () => {
+        return localStorage.getItem('token');
+    };
+
     // incomes
     const addIncome = async(income) =>{
-        const response = await axios.post(`${BASE_URL}add-income`, income)
-        .catch((err) =>{
-            setError(err.response.data.message)
-        })
-        getIncomes()
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            console.log("Adding income with data:", income);
+            console.log("Using token:", token);
+            const response = await axios.post(`${BASE_URL}add-income`, income, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Add income response:", response.data);
+            getIncomes();
+        } catch (err) {
+            console.error("Add income error:", err);
+            if (err.response) {
+                console.error("Server error response:", err.response.data);
+                setError(err.response.data.message || "Server error occurred");
+            } else if (err.request) {
+                console.error("No response received:", err.request);
+                setError("No response from server");
+            } else {
+                console.error("Request error:", err.message);
+                setError("Error setting up request: " + err.message);
+            }
+        }
     }
 
     const getIncomes = async () =>{
-        const response = await axios.get(`${BASE_URL}get-income`)
-        setIncomes(response.data)
-        console.log(response.data)
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            console.log("Fetching incomes with token:", token);
+            const response = await axios.get(`${BASE_URL}get-income`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Get incomes response:", response.data);
+            setIncomes(response.data);
+        } catch (err) {
+            console.error("Get incomes error:", err);
+            if (err.response) {
+                console.error("Server error response:", err.response.data);
+                setError(err.response.data.message || "Server error occurred");
+            } else if (err.request) {
+                console.error("No response received:", err.request);
+                setError("No response from server");
+            } else {
+                console.error("Request error:", err.message);
+                setError("Error setting up request: " + err.message);
+            }
+        }
     }
 
     const deleteIncome = async(id) =>{
-      const res = await axios.delete(`${BASE_URL}delete-income/${id}`)
-      getIncomes()
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            console.log("Deleting income with ID:", id);
+            console.log("Using token:", token);
+            const response = await axios.delete(`${BASE_URL}delete-income/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Delete income response:", response.data);
+            getIncomes();
+        } catch (err) {
+            console.error("Delete income error:", err);
+            if (err.response) {
+                console.error("Server error response:", err.response.data);
+                setError(err.response.data.message || "Server error occurred");
+            } else if (err.request) {
+                console.error("No response received:", err.request);
+                setError("No response from server");
+            } else {
+                console.error("Request error:", err.message);
+                setError("Error setting up request: " + err.message);
+            }
+        }
     }
 
     const totalIncome = ()=>{
@@ -39,24 +116,70 @@ export const GlobalProvider = ({children}) =>{
         return totalIncome;
     }
 
-    // incomes
-    const addExpense = async(income) =>{
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
-        .catch((err) =>{
-            setError(err.response.data.message)
-        })
-        getExpenses()
+    // expenses
+    const addExpense = async(expense) =>{
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            console.log("Adding expense with data:", expense);
+            console.log("Using token:", token);
+            const response = await axios.post(`${BASE_URL}add-expense`, expense, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Add expense response:", response.data);
+            getExpenses();
+        } catch (err) {
+            console.error("Add expense error:", err);
+            if (err.response) {
+                console.error("Server error response:", err.response.data);
+                setError(err.response.data.message || "Server error occurred");
+            } else if (err.request) {
+                console.error("No response received:", err.request);
+                setError("No response from server");
+            } else {
+                console.error("Request error:", err.message);
+                setError("Error setting up request: " + err.message);
+            }
+        }
     }
 
     const getExpenses = async () =>{
-        const response = await axios.get(`${BASE_URL}get-expense`)
-        setExpenses(response.data)
-        console.log(response.data)
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            const response = await axios.get(`${BASE_URL}get-expense`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setExpenses(response.data);
+        } catch (err) {
+            setError(err.response.data.message);
+        }
     }
 
     const deleteExpense = async(id) =>{
-      const res = await axios.delete(`${BASE_URL}delete-expense/${id}`)
-      getExpenses()
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        try {
+            await axios.delete(`${BASE_URL}delete-expense/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            getExpenses()
+        } catch (err) {
+            setError(err.response.data.message);
+        }
     }
 
     const totalExpense= ()=>{

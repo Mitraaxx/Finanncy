@@ -1,50 +1,65 @@
 const ExpenseSchema = require("../models/ExpenseModels")
 
-exports.addExpense = async(req , res) => {
-    const{title, amount, category, description, date} = req.body
+exports.addExpense = async(req, res) => {
+    const { title, amount, category, description, date } = req.body
+    const userId = req.user._id; // Access _id from the user object
+    
+    // Parse amount to ensure it's a number
+    const parsedAmount = parseFloat(amount);
 
-    const income = ExpenseSchema({
+    const expense = ExpenseSchema({
         title,
-        amount,
+        amount: parsedAmount, // Use the parsed amount
         category,
         description,
-        date
+        date,
+        userId // Include the user ID
     })
 
-    try{
-        if(!title || !category || !description || !date){
+    try {
+        // Validation
+        if(!title || !category || !description || !date) {
             return res.status(400).json({message: 'All fields are required!'})
         }
-        if(amount <= 0 || !amount === 'number'){
+        
+        // Check if amount is a valid number
+        if(isNaN(parsedAmount) || parsedAmount <= 0) {
             return res.status(400).json({message: 'Amount must be a positive number!'})
         }
-        await income.save()
+        
+        await expense.save()
         res.status(200).json({message: 'Expense Added'})
-    } catch(error){
-        res.status(500).json({message: 'server error'})
+    } catch(error) {
+        console.error("Add expense error:", error);
+        res.status(500).json({message: 'Server error'})
     }
-
-
-
-    console.log(income)
 }
  
-exports.getExpense = async(req, res) =>{
-    try{
-        const incomes = await ExpenseSchema.find().sort({createdAt: -1})
-        res.status(200).json(incomes)
+exports.getExpense = async(req, res) => {
+    try {
+        const userId = req.user._id; // Access _id from the user object
+        const expenses = await ExpenseSchema.find({ userId }).sort({ createdAt: -1 }) // Filter by user ID
+        res.status(200).json(expenses)
     } catch(error) {
+        console.error("Get expense error:", error);
         res.status(500).json({message: 'Server Error'})
     }
 }
 
-exports.deleteExpense = async (req, res) =>{
-    const {id} = req.params;
-    ExpenseSchema.findByIdAndDelete(id)
-    .then((income) =>{
+exports.deleteExpense = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user._id; // Access _id from the user object
+
+    try {
+        const expense = await ExpenseSchema.findOneAndDelete({ _id: id, userId });
+        
+        if (!expense) {
+            return res.status(404).json({ message: 'Expense not found or does not belong to the user' });
+        }
+        
         res.status(200).json({message: 'Expense Deleted'})
-    })
-    .catch((err) =>{
+    } catch(err) {
+        console.error("Delete expense error:", err);
         res.status(500).json({message: 'Server Error'})
-    })
+    }
 }

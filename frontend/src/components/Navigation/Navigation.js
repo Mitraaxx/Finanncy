@@ -3,14 +3,36 @@ import styled from 'styled-components'
 import { menuItems } from '../../utils/menuItems';
 import { signout } from '../../utils/Icons';
 import avatar from '../../images/avatar.png'
+import { useNavigate } from 'react-router-dom'
 
-function Navigation({active, setActive}) {
+function Navigation({active, setActive, handleLogout}) {
+  const navigate = useNavigate();
+  
+  // Get username directly from localStorage
+  const username = localStorage.getItem('username') || 'User';
+  
+  const handleSignOut = () => {
+    // Clear any auth tokens or user data from localStorage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('username'); // Also remove the username
+    sessionStorage.clear();
+    
+    // Call the existing handleLogout function if it exists
+    if (handleLogout) {
+      handleLogout();
+    }
+    
+    // Force a complete page reload to clear any React state
+    window.location.href = '/login';
+  }
+
   return (
     <NavStyled>
         <div className='user-con'>
             <img src= {avatar} alt=''/>
             <div className='text'>
-                <h2>Pri</h2>
+                <h2>{username}</h2>
                 <p>Your Money</p>
             </div>
         </div>
@@ -26,13 +48,36 @@ function Navigation({active, setActive}) {
             })}
         </ul>
         <div className='bottom-nav'>
-            <li>
+            <ButtonStyled onClick={handleSignOut}>
                 {signout} Sign Out
-            </li>
+            </ButtonStyled>
         </div>
     </NavStyled>
   )
 }
+
+const ButtonStyled = styled.button`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: rgba(34, 34, 96, 0.6);
+    transition: all .4s ease-in-out;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    
+    &:hover {
+        color: rgba(34, 34, 96, 1);
+        background: rgba(252, 246, 249, 0.9);
+    }
+    
+    svg {
+        font-size: 1.4rem;
+    }
+`;
 
 const NavStyled = styled.nav`
     padding: 2rem 1.5rem;

@@ -23,7 +23,7 @@ function Register() {
         
         try {
             // Make sure we're using the correct API endpoint
-            const response = await axios.post('http://localhost:5000/api/v1/register', formData);
+            const response = await axios.post('https://finanncy-back.onrender.com/api/v1/register', formData);
             console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to login page after successful registration
         } catch (error) {

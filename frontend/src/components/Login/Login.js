@@ -22,7 +22,7 @@ function Login({ setIsAuthenticated }) {
         setError('');
         
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/login', formData);
+            const response = await axios.post('https://finanncy-back.onrender.com/api/v1/login', formData);
             localStorage.setItem('token', response.data.token);
             
             // Store the username from the form in localStorage

@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:render": "chmod +x node_modules/.bin/react-scripts && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,6 +41,6 @@
     ]
   },
   "engines": {
-  "node": "18.x"
-}
+    "node": "18.x"
+  }
 }

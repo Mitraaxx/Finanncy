@@ -1,7 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useCallback} from "react";
 import axios from 'axios'
 
-const BASE_URL = "https://finanncy.onrender.com/api/v1/";
+const BASE_URL = "http://localhost:5000/api/v1/";
 
 const GlobalContext = React.createContext()
 
@@ -11,10 +11,28 @@ export const GlobalProvider = ({children}) =>{
     const [expense, setExpenses] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [loadingStates, setLoadingStates] = useState({
+        addIncome: false,
+        getIncomes: false,
+        deleteIncome: false,
+        addExpense: false,
+        getExpenses: false,
+        deleteExpense: false
+    })
 
     const getToken = () => {
         return localStorage.getItem('token');
     };
+
+    const setLoadingState = useCallback((action, isLoading) => {
+        setLoadingStates(prev => ({
+            ...prev,
+            [action]: isLoading
+        }));
+        
+        // Update global loading state
+        setLoading(isLoading);
+    }, []);
 
     // incomes
     const addIncome = async(income) =>{
@@ -22,7 +40,10 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('addIncome', true);
+        setError(null); // Clear previous errors
+        
         try {
             console.log("Adding income with data:", income);
             console.log("Using token:", token);
@@ -33,7 +54,11 @@ export const GlobalProvider = ({children}) =>{
                 }
             });
             console.log("Add income response:", response.data);
-            getIncomes();
+            
+            // Don't call getIncomes here to avoid double loading
+            // Instead, optimistically update the state or refresh after success
+            await getIncomes();
+            
         } catch (err) {
             console.error("Add income error:", err);
             if (err.response) {
@@ -47,7 +72,7 @@ export const GlobalProvider = ({children}) =>{
                 setError("Error setting up request: " + err.message);
             }
         } finally {
-            setLoading(false);
+            setLoadingState('addIncome', false);
         }
     }
 
@@ -56,7 +81,10 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('getIncomes', true);
+        setError(null); // Clear previous errors
+        
         try {
             console.log("Fetching incomes with token:", token);
             const response = await axios.get(`${BASE_URL}get-income`, {
@@ -80,7 +108,7 @@ export const GlobalProvider = ({children}) =>{
                 setError("Error setting up request: " + err.message);
             }
         } finally {
-            setLoading(false);
+            setLoadingState('getIncomes', false);
         }
     }
 
@@ -89,7 +117,10 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('deleteIncome', true);
+        setError(null); // Clear previous errors
+        
         try {
             console.log("Deleting income with ID:", id);
             console.log("Using token:", token);
@@ -100,7 +131,10 @@ export const GlobalProvider = ({children}) =>{
                 }
             });
             console.log("Delete income response:", response.data);
-            getIncomes();
+            
+            // Refresh the incomes after successful deletion
+            await getIncomes();
+            
         } catch (err) {
             console.error("Delete income error:", err);
             if (err.response) {
@@ -114,7 +148,7 @@ export const GlobalProvider = ({children}) =>{
                 setError("Error setting up request: " + err.message);
             }
         } finally {
-            setLoading(false);
+            setLoadingState('deleteIncome', false);
         }
     }
 
@@ -132,7 +166,10 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('addExpense', true);
+        setError(null); // Clear previous errors
+        
         try {
             console.log("Adding expense with data:", expense);
             console.log("Using token:", token);
@@ -143,7 +180,10 @@ export const GlobalProvider = ({children}) =>{
                 }
             });
             console.log("Add expense response:", response.data);
-            getExpenses();
+            
+            // Refresh expenses after successful addition
+            await getExpenses();
+            
         } catch (err) {
             console.error("Add expense error:", err);
             if (err.response) {
@@ -157,7 +197,7 @@ export const GlobalProvider = ({children}) =>{
                 setError("Error setting up request: " + err.message);
             }
         } finally {
-            setLoading(false);
+            setLoadingState('addExpense', false);
         }
     }
 
@@ -166,7 +206,10 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('getExpenses', true);
+        setError(null); // Clear previous errors
+        
         try {
             const response = await axios.get(`${BASE_URL}get-expense`, {
                 headers: {
@@ -175,9 +218,10 @@ export const GlobalProvider = ({children}) =>{
             });
             setExpenses(response.data);
         } catch (err) {
-            setError(err.response.data.message);
+            console.error("Get expenses error:", err);
+            setError(err.response?.data?.message || "Failed to fetch expenses");
         } finally {
-            setLoading(false);
+            setLoadingState('getExpenses', false);
         }
     }
 
@@ -186,18 +230,25 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
-        setLoading(true);
+        
+        setLoadingState('deleteExpense', true);
+        setError(null); // Clear previous errors
+        
         try {
             await axios.delete(`${BASE_URL}delete-expense/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            getExpenses()
+            
+            // Refresh expenses after successful deletion
+            await getExpenses();
+            
         } catch (err) {
-            setError(err.response.data.message);
+            console.error("Delete expense error:", err);
+            setError(err.response?.data?.message || "Failed to delete expense");
         } finally {
-            setLoading(false);
+            setLoadingState('deleteExpense', false);
         }
     }
 
@@ -231,6 +282,9 @@ export const GlobalProvider = ({children}) =>{
         return view
     }
 
+    // Check if any loading state is active
+    const isAnyLoading = Object.values(loadingStates).some(state => state === true);
+
     return(
         <GlobalContext.Provider value={{
             addIncome,
@@ -248,7 +302,8 @@ export const GlobalProvider = ({children}) =>{
             error,
             setError,
             ViewHistory,
-            loading
+            loading: isAnyLoading, // Use computed loading state
+            loadingStates // Expose individual loading states
         }}>
             {children}
         </GlobalContext.Provider>

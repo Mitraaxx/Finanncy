@@ -11,7 +11,7 @@ import { useGlobalContext } from "./context/GlobalContext";
 import View from "./components/View/View";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "./Loading";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {

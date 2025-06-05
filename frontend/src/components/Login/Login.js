@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../Loading';
+
 
 function Login({ setIsAuthenticated }) {
     const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ function Login({ setIsAuthenticated }) {
         password: ''
     });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const { username, password } = formData;
@@ -20,6 +23,7 @@ function Login({ setIsAuthenticated }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
         
         try {
             const response = await axios.post('https://finanncy.onrender.com/api/v1/login', formData);
@@ -34,11 +38,14 @@ function Login({ setIsAuthenticated }) {
         } catch (error) {
             console.error('Login failed:', error.response?.data?.message || error.message);
             setError(error.response?.data?.message || 'Invalid credentials');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <LoginStyled>
+            {loading && <LoadingSpinner overlay={true} />}
             <form onSubmit={handleSubmit}>
                 <h2>Login</h2>
                 {error && <div className="error-message">{error}</div>}
@@ -51,6 +58,7 @@ function Login({ setIsAuthenticated }) {
                         value={username}
                         onChange={handleChange}
                         required
+                        disabled={loading}
                     />
                 </div>
                 <div className="form-group">
@@ -62,11 +70,14 @@ function Login({ setIsAuthenticated }) {
                         value={password}
                         onChange={handleChange}
                         required
+                        disabled={loading}
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
+                </button>
                 <p className="register-link">
-                    Don't have an account? <span onClick={() => navigate('/register')}>Register</span>
+                    Don't have an account? <span onClick={() => !loading && navigate('/register')}>Register</span>
                 </p>
             </form>
         </LoginStyled>
@@ -80,6 +91,7 @@ const LoginStyled = styled.div`
     align-items: center;
     background: linear-gradient(135deg, #e6e9f0, #eef1f5);
     font-family: 'Jost', sans-serif;
+    position: relative;
 
     form {
         background: #fff;
@@ -119,12 +131,18 @@ const LoginStyled = styled.div`
         border-radius: 8px;
         border: 1px solid #ccc;
         font-size: 1rem;
-        transition: border 0.3s;
+        transition: border 0.3s, opacity 0.3s;
         outline: none;
     }
 
     input:focus {
         border-color: #4b61eb;
+    }
+
+    input:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: #f5f5f5;
     }
 
     button {
@@ -136,11 +154,16 @@ const LoginStyled = styled.div`
         font-weight: 500;
         border: none;
         cursor: pointer;
-        transition: background 0.3s;
+        transition: background 0.3s, opacity 0.3s;
     }
 
-    button:hover {
+    button:hover:not(:disabled) {
         background: #3548c4;
+    }
+
+    button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 
     .checkbox-group {
@@ -172,6 +195,11 @@ const LoginStyled = styled.div`
         color: #4b61eb;
         font-weight: 500;
         cursor: pointer;
+        transition: opacity 0.3s;
+    }
+
+    .register-link span:hover {
+        opacity: 0.8;
     }
 
     .divider {
@@ -226,7 +254,5 @@ const LoginStyled = styled.div`
         font-size: 0.9rem;
     }
 `;
-
-
 
 export default Login;

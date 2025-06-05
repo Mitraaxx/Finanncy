@@ -10,6 +10,7 @@ export const GlobalProvider = ({children}) =>{
     const [incomes, setIncomes] = useState([])
     const [expense, setExpenses] = useState([])
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const getToken = () => {
         return localStorage.getItem('token');
@@ -21,6 +22,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             console.log("Adding income with data:", income);
             console.log("Using token:", token);
@@ -44,6 +46,8 @@ export const GlobalProvider = ({children}) =>{
                 console.error("Request error:", err.message);
                 setError("Error setting up request: " + err.message);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -52,6 +56,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             console.log("Fetching incomes with token:", token);
             const response = await axios.get(`${BASE_URL}get-income`, {
@@ -74,6 +79,8 @@ export const GlobalProvider = ({children}) =>{
                 console.error("Request error:", err.message);
                 setError("Error setting up request: " + err.message);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -82,6 +89,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             console.log("Deleting income with ID:", id);
             console.log("Using token:", token);
@@ -105,6 +113,8 @@ export const GlobalProvider = ({children}) =>{
                 console.error("Request error:", err.message);
                 setError("Error setting up request: " + err.message);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -122,6 +132,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             console.log("Adding expense with data:", expense);
             console.log("Using token:", token);
@@ -145,6 +156,8 @@ export const GlobalProvider = ({children}) =>{
                 console.error("Request error:", err.message);
                 setError("Error setting up request: " + err.message);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -153,6 +166,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             const response = await axios.get(`${BASE_URL}get-expense`, {
                 headers: {
@@ -162,6 +176,8 @@ export const GlobalProvider = ({children}) =>{
             setExpenses(response.data);
         } catch (err) {
             setError(err.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -170,6 +186,7 @@ export const GlobalProvider = ({children}) =>{
         if (!token) {
             return setError("User not authenticated");
         }
+        setLoading(true);
         try {
             await axios.delete(`${BASE_URL}delete-expense/${id}`, {
                 headers: {
@@ -179,6 +196,8 @@ export const GlobalProvider = ({children}) =>{
             getExpenses()
         } catch (err) {
             setError(err.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -197,7 +216,7 @@ export const GlobalProvider = ({children}) =>{
     const transactionHistory = () => {
         const history = [...incomes, ...expense]
         history.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt)
+            return new Date(b.date) - new Date(a.date)
         })
 
         return history.slice(0, 3)
@@ -206,7 +225,7 @@ export const GlobalProvider = ({children}) =>{
     const ViewHistory = () => {
         const view = [...incomes, ...expense]
         view.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt)
+            return new Date(b.date) - new Date(a.date)
         })
 
         return view
@@ -228,7 +247,8 @@ export const GlobalProvider = ({children}) =>{
             transactionHistory,
             error,
             setError,
-            ViewHistory
+            ViewHistory,
+            loading
         }}>
             {children}
         </GlobalContext.Provider>
@@ -238,7 +258,3 @@ export const GlobalProvider = ({children}) =>{
 export const useGlobalContext= () =>{
     return useContext(GlobalContext)
 }
-
-
-
-// http://localhost:5000

@@ -21,12 +21,38 @@ export const GlobalStyle = createGlobalStyle`
 
     body{
         font-family: "Barlow", serif;
-        font-size: clamp(1rem, 1.5vw, 1.25rem);
+        font-size: 0.875rem; /* Reduced from clamp(1rem, 1.5vw, 1.25rem) to 14px equivalent */
         overflow: hidden;
         color: rgba(34,34,96,.6);
     }
 
-    h1,h2,h3,h4,h5,h6{
+    h1{
+        font-size: 1.5rem; /* 24px */
+        color: var(--primary-color)
+    }
+    
+    h2{
+        font-size: 1.25rem; /* 20px */
+        color: var(--primary-color)
+    }
+    
+    h3{
+        font-size: 1.125rem; /* 18px */
+        color: var(--primary-color)
+    }
+    
+    h4{
+        font-size: 1rem; /* 16px */
+        color: var(--primary-color)
+    }
+    
+    h5{
+        font-size: 0.875rem; /* 14px */
+        color: var(--primary-color)
+    }
+    
+    h6{
+        font-size: 0.75rem; /* 12px */
         color: var(--primary-color)
     }
 

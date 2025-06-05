@@ -52,6 +52,28 @@ function App() {
     setIsAuthenticated(token ? true : false);
   }, []);
 
+  React.useEffect(() => {
+  const script1 = document.createElement("script");
+  script1.innerHTML = `
+    window.chtlConfig = { chatbotId: "5128478583" };
+  `;
+  document.body.appendChild(script1);
+
+  const script2 = document.createElement("script");
+  script2.src = "https://chatling.ai/js/embed.js";
+  script2.async = true;
+  script2.setAttribute("data-id", "5128478583");
+  script2.setAttribute("id", "chtl-script");
+  script2.type = "text/javascript";
+  document.body.appendChild(script2);
+
+  return () => {
+    document.body.removeChild(script1);
+    document.body.removeChild(script2);
+  };
+}, []);
+
+
   return (
     <Router>
  <AppStyled bg={bg} className="App">
@@ -75,16 +97,21 @@ function App() {
 const AppStyled = styled.div`
  height: 100vh;
  background-image: url(${props => props.bg});
+ background-size: cover;
+ background-position: center;
  position: relative;
+ 
  main{
       flex: 1;
       background: rgba(252, 246, 249, 0.78);
-      border: 3px solid #FFFFFF;
+      border: 2px solid #FFFFFF; /* Reduced from 3px */
       backdrop-filter: blur(4.5px);
-      border-radius: 32px;
+      border-radius: 20px; /* Reduced from 32px */
       overflow: auto;
       overflow-x: hidden;
-      &:: -webkit-scrollbar{
+      font-size: 0.875rem; /* Ensure consistent smaller font size */
+      
+      &::-webkit-scrollbar{
       width: 0;
       }
     }

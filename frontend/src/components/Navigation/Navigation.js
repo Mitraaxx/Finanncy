@@ -57,6 +57,7 @@ function Navigation({active, setActive, handleLogout}) {
 }
 
 const ButtonStyled = styled.button`
+    zoom: .90;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -80,6 +81,7 @@ const ButtonStyled = styled.button`
 `;
 
 const NavStyled = styled.nav`
+    zoom: .63;
     padding: 2rem 1.5rem;
     width: 374px;
     height: 100%;

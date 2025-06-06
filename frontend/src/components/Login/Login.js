@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../Loading';
+import { InnerLayout } from '../../styles/Layouts';
 
 
 function Login({ setIsAuthenticated }) {
@@ -26,7 +27,7 @@ function Login({ setIsAuthenticated }) {
         setLoading(true);
         
         try {
-            const response = await axios.post('https://finanncy.onrender.com/api/v1/login', formData);
+            const response = await axios.post('http://localhost:5000/api/v1/login', formData);
             localStorage.setItem('token', response.data.token);
             
             // Store the username from the form in localStorage
@@ -44,6 +45,7 @@ function Login({ setIsAuthenticated }) {
     };
 
     return (
+        <InnerLayout>
         <LoginStyled>
             {loading && <LoadingSpinner overlay={true} />}
             <form onSubmit={handleSubmit}>
@@ -81,6 +83,7 @@ function Login({ setIsAuthenticated }) {
                 </p>
             </form>
         </LoginStyled>
+        </InnerLayout>
     );
 }
 
@@ -89,7 +92,6 @@ const LoginStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #e6e9f0, #eef1f5);
     font-family: 'Jost', sans-serif;
     position: relative;
 
@@ -103,6 +105,7 @@ const LoginStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 1.2rem;
+        ;
     }
 
     h2 {

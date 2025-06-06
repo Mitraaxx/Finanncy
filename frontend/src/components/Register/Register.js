@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../Loading';
+import { InnerLayout } from '../../styles/Layouts';
 
 
 function Register() {
@@ -51,7 +52,7 @@ function Register() {
         
         try {
             // Make sure we're using the correct API endpoint
-            const response = await axios.post('https://finanncy.onrender.com/api/v1/register', formData);
+            const response = await axios.post('http://localhost:5000/api/v1/register', formData);
             console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to login page after successful registration
         } catch (error) {
@@ -63,6 +64,7 @@ function Register() {
     };
 
     return (
+        <InnerLayout>
         <RegisterStyled>
             {loading && <LoadingSpinner overlay={true} />}
             <form onSubmit={handleSubmit}>
@@ -115,6 +117,7 @@ function Register() {
                 </p>
             </form>
         </RegisterStyled>
+        </InnerLayout>
     );
 }
 
@@ -123,7 +126,6 @@ const RegisterStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #e6e9f0, #eef1f5);
     font-family: 'Jost', sans-serif;
     position: relative;
 

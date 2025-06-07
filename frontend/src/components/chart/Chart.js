@@ -70,12 +70,50 @@ function Chart() {
 }
 
 const chartStyled = styled.div`
-    background: #FCF6F9;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+  background: #FCF6F9;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  
+  /* Mobile First - Small screens */
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+    border-radius: 12px;
+    border-width: 1px;
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Tablet */
+  @media (min-width: 481px) and (max-width: 768px) {
+    padding: 0.875rem;
+    border-radius: 16px;
+  }
+  
+  /* Desktop */
+  @media (min-width: 769px) and (max-width: 1024px) {
     padding: 1rem;
+    border-radius: 18px;
+  }
+  
+  /* Large Desktop */
+  @media (min-width: 1025px) {
+    padding: 1.25rem;
     border-radius: 20px;
-    height: 100%;
+  }
+  
+  /* Ensure content doesn't overflow */
+  overflow: hidden;
+  box-sizing: border-box;
+  
+  /* Handle very small screens */
+  @media (max-width: 320px) {
+    padding: 0.5rem;
+    border-radius: 8px;
+    min-height: 200px;
+  }
 `;
 
 export default Chart

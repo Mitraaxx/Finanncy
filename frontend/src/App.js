@@ -114,21 +114,38 @@ function App() {
 }
 
 const AppStyled = styled.div`
-  height: 100vh;
-  background-image: url(${props => props.bg});
-  position: relative;
-  main{
-    flex: 1;
-    background: rgba(252, 246, 249, 0.78);
-    border: 3px solid #FFFFFF;
-    backdrop-filter: blur(4.5px);
-    border-radius: 32px;
-    overflow: auto;
-    overflow-x: hidden;
-    &::-webkit-scrollbar{
-      width: 0;
+    height: 100vh;
+    background-image: url(${props => props.bg});
+    position: relative;
+
+    main {
+        flex: 1;
+        background: rgba(252, 246, 249, 0.78);
+        border: 3px solid #FFFFFF;
+        backdrop-filter: blur(4.5px);
+        border-radius: 32px;
+        overflow: auto;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+            width: 0;
+        }
     }
-  }
+
+    @media (max-width: 768px) {
+        main {
+            border-radius: 24px;
+            border: 2px solid #FFFFFF;
+            backdrop-filter: blur(3.5px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        main {
+            border-radius: 16px;
+            border: 1px solid #FFFFFF;
+            backdrop-filter: blur(2.5px);
+        }
+    }
 `;
 
 const LoadingOverlay = styled.div`
@@ -144,6 +161,21 @@ const LoadingOverlay = styled.div`
   align-items: center;
   z-index: 9999;
   backdrop-filter: blur(2px);
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    backdrop-filter: blur(1px);
+  }
+  
+  /* Tablet */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    backdrop-filter: blur(1.5px);
+  }
+  
+  /* Desktop */
+  @media (min-width: 1025px) {
+    backdrop-filter: blur(2px);
+  }
 `;
 
 const LoadingText = styled.div`
@@ -152,6 +184,21 @@ const LoadingText = styled.div`
   font-weight: 500;
   margin-top: 1rem;
   text-align: center;
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+  
+  /* Tablet */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    font-size: 1.05rem;
+  }
+  
+  /* Desktop */
+  @media (min-width: 1025px) {
+    font-size: 1.1rem;
+  }
 `;
 
 export default App;

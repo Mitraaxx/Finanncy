@@ -102,11 +102,11 @@ function Form() {
 }
 
 
-
 const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    
     input, textarea, select{
         font-family: inherit;
         font-size: inherit;
@@ -119,8 +119,18 @@ const FormStyled = styled.form`
         resize: none;
         box-shadow: 0px 1px 15px rgba(0,0,0,0.06);
         color: rgba(34,34,96,0.9);
+        
         &::placeholder{
             color: rgba(34, 34, 96, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            padding: .75rem 1rem;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 480px) {
+            padding: .5rem .75rem;
         }
     }
 
@@ -133,11 +143,16 @@ const FormStyled = styled.form`
     .selects{
         display: flex;
         justify-content: flex-end;
+        
         select{
             color: rgba(34, 34, 96, 0.4);
             &:focus, &:active{
                 color: rgba(34,34,96,1);
             }
+        }
+        
+        @media (max-width: 768px) {
+            justify-content: center;
         }
     }
 
@@ -149,6 +164,17 @@ const FormStyled = styled.form`
             }
         }
     }
-
+    
+    @media (max-width: 768px) {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    @media (max-width: 480px) {
+        gap: 1rem;
+        padding: 0 .5rem;
+    }
 `;
+
+
 export default Form

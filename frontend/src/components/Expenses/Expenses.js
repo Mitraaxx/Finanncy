@@ -48,9 +48,10 @@ function Expenses() {
 }
 
 const ExpenseStyled = styled.div`
-      display: flex;
-      overflow: auto;
-      .total-income{
+    display: flex;
+    overflow: auto;
+    
+    .total-income{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,30 +63,64 @@ const ExpenseStyled = styled.div`
         margin: 1rem 0;
         font-size: 2rem;
         gap: .5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #FCF6F9;
-        border: 2px solid #FFFFFF;
-        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-        border-radius: 20px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-size: 2rem;
-        gap: .5rem;
+        
         span{
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--color-delete);
         }
-      }  
-      .income-content{
+        
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+            padding: .75rem;
+            margin: .75rem 0;
+            border-radius: 15px;
+            
+            span {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            font-size: 1.25rem;
+            padding: .5rem;
+            margin: .5rem 0;
+            border-radius: 10px;
+            flex-direction: column;
+            text-align: center;
+            
+            span {
+                font-size: 1.5rem;
+            }
+        }
+    }  
+    
+    .income-content{
         display: flex;
         gap: 2rem;
+        
         .incomes{
-          flex: 1;
+            flex: 1;
         }
-      }
+        
+        @media (max-width: 768px) {
+            gap: 1.5rem;
+            flex-direction: column;
+        }
+        
+        @media (max-width: 480px) {
+            gap: 1rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        flex-direction: column;
+        overflow: visible;
+    }
+    
+    @media (max-width: 480px) {
+        padding: 0 .5rem;
+    }
 `;
 
 export default Expenses

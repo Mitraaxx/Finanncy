@@ -108,9 +108,24 @@ const IncomeItemStyled = styled.div`
     align-items: center;
     gap: 1rem;
     width: 100%;
-    color: #222260
-    .icon{
-         width: 80px;
+    color: #222260;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 15px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 0.6rem;
+        margin-bottom: 0.8rem;
+        border-radius: 12px;
+    }
+
+    .icon {
+        width: 80px;
         height: 80px;
         border-radius: 20px;
         background: #F5F5F5;
@@ -118,49 +133,133 @@ const IncomeItemStyled = styled.div`
         align-items: center;
         justify-content: center;
         border: 2px solid #FFFFFF;
-        i{
+        
+        @media (max-width: 768px) {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            align-self: center;
+        }
+
+        @media (max-width: 480px) {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+        }
+
+        i {
             font-size: 2.6rem;
+            
+            @media (max-width: 768px) {
+                font-size: 2rem;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 1.6rem;
+            }
         }
     }
 
-    .content{
+    .content {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: .2rem;
-        h5{
+        gap: 0.2rem;
+        
+        @media (max-width: 768px) {
+            width: 100%;
+            gap: 0.4rem;
+        }
+
+        h5 {
             font-size: 1.3rem;
             padding-left: 2rem;
             position: relative;
-            &::before{
+            
+            @media (max-width: 768px) {
+                font-size: 1.1rem;
+                padding-left: 1.5rem;
+                text-align: center;
+                padding-right: 1.5rem;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 1rem;
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+
+            &::before {
                 content: '';
                 position: absolute;
                 left: 0;
                 top: 50%;
                 transform: translateY(-50%);
-                width: .8rem;
-                height: .8rem;
+                width: 0.8rem;
+                height: 0.8rem;
                 border-radius: 50%;
                 background: ${props => props.indicator};
+                
+                @media (max-width: 768px) {
+                    width: 0.6rem;
+                    height: 0.6rem;
+                }
+
+                @media (max-width: 480px) {
+                    width: 0.5rem;
+                    height: 0.5rem;
+                }
             }
         }
 
-        .inner-content{
+        .inner-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .text{
+            
+            @media (max-width: 768px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            @media (max-width: 480px) {
+                gap: 0.3rem;
+            }
+
+            .text {
                 display: flex;
                 align-items: center;
                 gap: 1.5rem;
-                p{
+                
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.3rem;
+                    width: 100%;
+                }
+
+                @media (max-width: 480px) {
+                    gap: 0.2rem;
+                }
+
+                p {
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
                     color: var(--primary-color);
                     opacity: 0.8;
+                    
+                    @media (max-width: 768px) {
+                        font-size: 0.9rem;
+                    }
+
+                    @media (max-width: 480px) {
+                        font-size: 0.8rem;
+                        gap: 0.3rem;
+                    }
                 }
-            }        
+            }
         }
     }
 `;

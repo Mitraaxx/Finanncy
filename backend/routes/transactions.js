@@ -33,13 +33,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: "Username already exists" });
         }
         
-        // Check if email is already taken (only if email is provided)
-        if (email) {
-            const existingEmail = await User.findOne({ email });
-            if (existingEmail) {
-                return res.status(400).json({ message: "Email already exists" });
-            }
-        }
+       
         
         // Create new user
         const salt = await bcrypt.genSalt(10);
@@ -50,10 +44,7 @@ router.post('/register', async (req, res) => {
             password: hashedPassword
         };
         
-        // Only add email if it's provided
-        if (email && email.trim() !== '') {
-            userData.email = email;
-        }
+       
         
         const user = new User(userData);
         await user.save();

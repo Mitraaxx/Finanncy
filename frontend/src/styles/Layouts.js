@@ -11,5 +11,5 @@ export const InnerLayout = styled.div`
     padding: 2rem 1.5rem;
     width: 100%;
     zoom: 0.71;
-    position: fixed;
+    position: relative;
 `;

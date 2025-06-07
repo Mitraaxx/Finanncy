@@ -9,13 +9,12 @@ import { InnerLayout } from '../../styles/Layouts';
 function Register() {
     const [formData, setFormData] = useState({
         username: '',
-        email: '',
         password: ''
     });
     const [error, setError] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { username, email, password } = formData;
+    const { username, password } = formData;
     const navigate = useNavigate();
 
     const validateUsername = (username) => {
@@ -83,17 +82,6 @@ function Register() {
                         className={usernameError ? 'input-error' : ''}
                     />
                     {usernameError && <div className="field-error">{usernameError}</div>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>

@@ -25,7 +25,7 @@ router.post('/add-income', auth, addIncome)
 router.post('/register', async (req, res) => {
     console.log(req.body); // Log incoming request body
     try {
-        const { username, email, password } = req.body;
+        const { username, password } = req.body;
         
         // Check if username is already taken
         const existingUsername = await User.findOne({ username });

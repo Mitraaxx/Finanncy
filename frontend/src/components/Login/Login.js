@@ -94,6 +94,7 @@ const LoginStyled = styled.div`
     align-items: center;
     font-family: 'Jost', sans-serif;
     position: relative;
+    padding: 1rem;
 
     form {
         background: #fff;
@@ -105,7 +106,6 @@ const LoginStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 1.2rem;
-        ;
     }
 
     h2 {
@@ -120,7 +120,6 @@ const LoginStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.3rem;
-        position: relative;
     }
 
     label {
@@ -169,24 +168,6 @@ const LoginStyled = styled.div`
         cursor: not-allowed;
     }
 
-    .checkbox-group {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 0.85rem;
-        color: #555;
-    }
-
-    .checkbox-group input {
-        margin-right: 0.5rem;
-    }
-
-    .checkbox-group a {
-        color: #4b61eb;
-        text-decoration: none;
-        font-weight: 500;
-    }
-
     .register-link {
         text-align: center;
         font-size: 0.9rem;
@@ -205,49 +186,6 @@ const LoginStyled = styled.div`
         opacity: 0.8;
     }
 
-    .divider {
-        text-align: center;
-        position: relative;
-        margin: 1rem 0;
-        font-size: 0.9rem;
-        color: #999;
-    }
-
-    .divider::before,
-    .divider::after {
-        content: "";
-        position: absolute;
-        height: 1px;
-        width: 40%;
-        background: #ddd;
-        top: 50%;
-    }
-
-    .divider::before {
-        left: 0;
-    }
-
-    .divider::after {
-        right: 0;
-    }
-
-    .social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    .social-icons img {
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    .social-icons img:hover {
-        transform: scale(1.1);
-    }
-
     .error-message {
         background-color: #ffefef;
         color: #c00;
@@ -255,6 +193,53 @@ const LoginStyled = styled.div`
         border-radius: 6px;
         text-align: center;
         font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE STYLES */
+    @media (max-width: 768px) {
+        form {
+            padding: 1.5rem;
+            max-width: 90%;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        input, button {
+            font-size: 0.95rem;
+        }
+
+        .register-link {
+            font-size: 0.85rem;
+        }
+
+        .error-message {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        form {
+            padding: 1.2rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+        }
+
+        input, button {
+            font-size: 0.9rem;
+            padding: 0.65rem 0.9rem;
+        }
+
+        .register-link {
+            font-size: 0.8rem;
+        }
+
+        .error-message {
+            font-size: 0.8rem;
+        }
     }
 `;
 

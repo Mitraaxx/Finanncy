@@ -116,6 +116,7 @@ const RegisterStyled = styled.div`
     align-items: center;
     font-family: 'Jost', sans-serif;
     position: relative;
+    padding: 1rem;
 
     form {
         background: #fff;
@@ -232,6 +233,70 @@ const RegisterStyled = styled.div`
 
     .login-link span:hover {
         opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+
+        form {
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+        }
+
+        input {
+            padding: 0.7rem 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        button {
+            padding: 0.7rem;
+            font-size: 0.95rem;
+        }
+
+        .login-link {
+            font-size: 0.85rem;
+        }
+
+        .error-message,
+        .field-error {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 0.25rem;
+
+        form {
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+        }
+
+        input {
+            padding: 0.65rem 0.9rem;
+            font-size: 0.9rem;
+        }
+
+        button {
+            padding: 0.65rem;
+            font-size: 0.9rem;
+        }
+
+        .login-link {
+            font-size: 0.8rem;
+        }
+
+        .error-message,
+        .field-error {
+            font-size: 0.8rem;
+        }
     }
 `;
 

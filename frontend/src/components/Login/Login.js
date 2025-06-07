@@ -120,6 +120,7 @@ const LoginStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.3rem;
+        position: relative;
     }
 
     label {
@@ -168,6 +169,24 @@ const LoginStyled = styled.div`
         cursor: not-allowed;
     }
 
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: #555;
+    }
+
+    .checkbox-group input {
+        margin-right: 0.5rem;
+    }
+
+    .checkbox-group a {
+        color: #4b61eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
     .register-link {
         text-align: center;
         font-size: 0.9rem;
@@ -186,6 +205,49 @@ const LoginStyled = styled.div`
         opacity: 0.8;
     }
 
+    .divider {
+        text-align: center;
+        position: relative;
+        margin: 1rem 0;
+        font-size: 0.9rem;
+        color: #999;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        position: absolute;
+        height: 1px;
+        width: 40%;
+        background: #ddd;
+        top: 50%;
+    }
+
+    .divider::before {
+        left: 0;
+    }
+
+    .divider::after {
+        right: 0;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-icons img {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .social-icons img:hover {
+        transform: scale(1.1);
+    }
+
     .error-message {
         background-color: #ffefef;
         color: #c00;
@@ -195,50 +257,50 @@ const LoginStyled = styled.div`
         font-size: 0.9rem;
     }
 
-    /* RESPONSIVE STYLES */
     @media (max-width: 768px) {
+        padding: 0.5rem;
+
         form {
             padding: 1.5rem;
-            max-width: 90%;
+            border-radius: 12px;
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
-        input, button {
+        input {
+            padding: 0.7rem 0.9rem;
             font-size: 0.95rem;
         }
 
-        .register-link {
-            font-size: 0.85rem;
-        }
-
-        .error-message {
-            font-size: 0.85rem;
+        button {
+            padding: 0.7rem;
+            font-size: 0.95rem;
         }
     }
 
     @media (max-width: 480px) {
+        padding: 0.25rem;
+
         form {
-            padding: 1.2rem;
+            padding: 1.25rem;
+            border-radius: 8px;
         }
 
         h2 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
 
-        input, button {
-            font-size: 0.9rem;
-            padding: 0.65rem 0.9rem;
+        .checkbox-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        .register-link {
-            font-size: 0.8rem;
-        }
-
-        .error-message {
-            font-size: 0.8rem;
+        .social-icons img {
+            width: 32px;
+            height: 32px;
         }
     }
 `;

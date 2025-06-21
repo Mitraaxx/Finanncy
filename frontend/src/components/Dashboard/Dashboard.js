@@ -99,13 +99,13 @@ const DashboardStyled = styled.div`
                 gap: 2rem;
                 margin-top: 2rem;
                 
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 450px) {
                     grid-template-columns: 1fr;
                     gap: 1rem;
                     margin-top: 1rem;
                 }
                 
-                @media screen and (min-width: 769px) and (max-width: 1200px) {
+                @media screen and (min-width: 451px) and (max-width: 1200px) {
                     grid-template-columns: repeat(2, 1fr);
                     gap: 1.5rem;
                 }
@@ -113,11 +113,11 @@ const DashboardStyled = styled.div`
                 .income, .expense{
                     grid-column: span 2;
                     
-                    @media screen and (max-width: 768px) {
+                    @media screen and (max-width: 450px) {
                         grid-column: span 1;
                     }
                     
-                    @media screen and (min-width: 769px) and (max-width: 1200px) {
+                    @media screen and (min-width: 451px) and (max-width: 1200px) {
                         grid-column: span 1;
                     }
                 }
@@ -129,7 +129,7 @@ const DashboardStyled = styled.div`
                     border-radius: 20px;
                     padding: 1rem;
                     
-                    @media screen and (max-width: 480px) {
+                    @media screen and (max-width: 450px) {
                         padding: 0.8rem;
                     }
                     
@@ -141,7 +141,7 @@ const DashboardStyled = styled.div`
                             font-size: 2.5rem;
                         }
                         
-                        @media screen and (max-width: 480px) {
+                        @media screen and (max-width: 450px) {
                             font-size: 2rem;
                         }
                     }
@@ -151,7 +151,7 @@ const DashboardStyled = styled.div`
                             font-size: 1.2rem;
                         }
                         
-                        @media screen and (max-width: 480px) {
+                        @media screen and (max-width: 450px) {
                             font-size: 1rem;
                         }
                     }
@@ -164,11 +164,11 @@ const DashboardStyled = styled.div`
                     justify-content: center;
                     align-items: center;
                     
-                    @media screen and (max-width: 768px) {
+                    @media screen and (max-width: 450px) {
                         grid-column: span 1;
                     }
                     
-                    @media screen and (min-width: 769px) and (max-width: 1200px) {
+                    @media screen and (min-width: 451px) and (max-width: 1200px) {
                         grid-column: span 2;
                     }
                     
@@ -181,7 +181,7 @@ const DashboardStyled = styled.div`
                             font-size: 3rem;
                         }
                         
-                        @media screen and (max-width: 480px) {
+                        @media screen and (max-width: 450px) {
                             font-size: 2.5rem;
                         }
 
@@ -219,7 +219,7 @@ const DashboardStyled = styled.div`
                     font-size: 1rem;
                 }
                 
-                @media screen and (max-width: 480px) {
+                @media screen and (max-width: 450px) {
                     font-size: 0.9rem;
                 }
                 
@@ -230,7 +230,7 @@ const DashboardStyled = styled.div`
                         font-size: 1.4rem;
                     }
                     
-                    @media screen and (max-width: 480px) {
+                    @media screen and (max-width: 450px) {
                         font-size: 1.2rem;
                     }
                 }
@@ -252,7 +252,7 @@ const DashboardStyled = styled.div`
                     margin-bottom: 0.8rem;
                 }
                 
-                @media screen and (max-width: 480px) {
+                @media screen and (max-width: 450px) {
                     padding: 0.6rem;
                     flex-direction: column;
                     gap: 0.5rem;
@@ -267,7 +267,7 @@ const DashboardStyled = styled.div`
                         font-size: 1.3rem;
                     }
                     
-                    @media screen and (max-width: 480px) {
+                    @media screen and (max-width: 450px) {
                         font-size: 1.1rem;
                     }
                 }
@@ -284,7 +284,7 @@ const DashboardStyled = styled.div`
         }
     }
     
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 450px) {
         h1 {
             font-size: 1.5rem;
             margin-bottom: 1rem;

@@ -31,6 +31,8 @@ function Dashboard() {
     getExpenses,
     incomes,
     expense,
+    downloadExcel,
+    loadingStates
   } = useGlobalContext();
 
   useEffect(() => {

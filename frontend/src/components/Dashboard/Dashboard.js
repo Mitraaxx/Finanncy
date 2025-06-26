@@ -70,8 +70,7 @@ function Dashboard() {
               </>
             ) : (
               <>
-                <DownloadIcon />
-                Download Excel
+                <DownloadIcon/>
               </>
             )}
           </button>

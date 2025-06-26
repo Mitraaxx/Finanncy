@@ -62,7 +62,7 @@ const downloadExcel = async (req, res) => {
         });
 
         // Format income amount column as currency
-        incomeSheet.getColumn('amount').numFmt = '"Rs"#,##0';
+        incomeSheet.getColumn('amount').numFmt = '"Rs "#,##0';
 
         // Add total row for income
         if (incomes.length > 0) {
@@ -129,7 +129,7 @@ const downloadExcel = async (req, res) => {
         });
 
         // Format expense amount column as currency
-        expenseSheet.getColumn('amount').numFmt = '"Rs"#,##0';
+        expenseSheet.getColumn('amount').numFmt = '"Rs "#,##0';
 
         // Add total row for expenses
         if (expenses.length > 0) {
@@ -183,7 +183,7 @@ const downloadExcel = async (req, res) => {
         summarySheet.addRow({ category: 'Net Balance', value: netBalance });
 
         // Format summary values as currency
-        summarySheet.getColumn('value').numFmt = '"Rs"#,##0';
+        summarySheet.getColumn('value').numFmt = '"Rs "#,##0';
 
         // Style net balance row based on positive/negative
         const netBalanceRow = summarySheet.getRow(4);

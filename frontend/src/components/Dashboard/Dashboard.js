@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { InnerLayout } from "../../styles/Layouts";
 import Chart from "../chart/Chart";
@@ -32,27 +32,13 @@ function Dashboard() {
     incomes,
     expense,
     downloadExcel,
+    loadingStates
   } = useGlobalContext();
-
-  // Local loading state specifically for download
-  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     getIncomes();
     getExpenses();
   }, []);
-
-  // Wrapper function to handle local loading state
-  const handleDownloadExcel = async () => {
-    setIsDownloading(true);
-    try {
-      await downloadExcel();
-    } catch (error) {
-      console.error("Download failed:", error);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   return (
     <DashboardStyled>
@@ -61,10 +47,10 @@ function Dashboard() {
           <h1>All Transactions</h1>
           <button
             className="download-btn"
-            onClick={handleDownloadExcel}
-            disabled={isDownloading}
+            onClick={downloadExcel}
+            disabled={loadingStates.downloadExcel}
           >
-            {isDownloading ? (
+            {loadingStates.downloadExcel ? (
               <>
                 <div className="spinner"></div>
                 Downloading...
@@ -72,7 +58,6 @@ function Dashboard() {
             ) : (
               <>
                 <DownloadIcon />
-                Download Excel
               </>
             )}
           </button>
@@ -193,18 +178,10 @@ const DashboardStyled = styled.div`
     letter-spacing: 0.5px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: all 0.2s ease;
 
     /* Subtle inner shadow for depth */
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
       0 1px 3px rgba(0, 0, 0, 0.1);
-
-    &:hover:not(:disabled) {
-      background: #e9ecef;
-      transform: translateY(-1px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
-        0 2px 5px rgba(0, 0, 0, 0.15);
-    }
 
     &:active:not(:disabled) {
       transform: translateY(1px);
@@ -219,6 +196,12 @@ const DashboardStyled = styled.div`
       cursor: not-allowed;
       transform: none;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    /* Icon styling - larger and blue */
+    .icon {
+      width: 18px;
+      height: 18px;
     }
 
     /* Spinner for loading state */
@@ -243,6 +226,7 @@ const DashboardStyled = styled.div`
       font-size: 0.8rem;
       letter-spacing: 0.3px;
 
+      .icon,
       .spinner {
         width: 16px;
         height: 16px;
@@ -253,6 +237,7 @@ const DashboardStyled = styled.div`
       padding: 0.45rem 0.9rem;
       font-size: 0.75rem;
 
+      .icon,
       .spinner {
         width: 14px;
         height: 14px;

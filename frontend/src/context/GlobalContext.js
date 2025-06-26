@@ -41,7 +41,6 @@ export const GlobalProvider = ({children}) =>{
             return setError("User not authenticated");
         }
         
-        setLoadingState('downloadExcel', true);
         setError(null);
         
         try {
@@ -75,9 +74,7 @@ export const GlobalProvider = ({children}) =>{
             } else {
                 setError("Failed to download Excel file");
             }
-        } finally {
-            setLoadingState('downloadExcel', false);
-        }
+        } 
     };
 
     // incomes

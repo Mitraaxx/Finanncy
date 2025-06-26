@@ -1,5 +1,6 @@
 const { addExpense, getExpense, deleteExpense } = require('../controllers/expense');
 const { addIncome, getIncome, deleteIncome} = require('../controllers/income');
+const { downloadExcel } = require('../controllers/excel'); // Add this import
 const User = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -18,7 +19,8 @@ router.post('/add-income', auth, addIncome)
  .delete('/delete-income/:id', auth, deleteIncome)
  .post('/add-expense', auth, addExpense)
  .get('/get-expense', auth, getExpense)
- .delete('/delete-expense/:id', auth, deleteExpense);
+ .delete('/delete-expense/:id', auth, deleteExpense)
+ .get('/download-excel', auth, downloadExcel); // Add this route
 
 
 // User registration
@@ -33,7 +35,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: "Username already exists" });
         }
         
-       
+        // Check if email is already taken (only if email is provided)
         
         // Create new user
         const salt = await bcrypt.genSalt(10);
@@ -44,7 +46,6 @@ router.post('/register', async (req, res) => {
             password: hashedPassword
         };
         
-       
         
         const user = new User(userData);
         await user.save();

@@ -17,7 +17,8 @@ export const GlobalProvider = ({children}) =>{
         deleteIncome: false,
         addExpense: false,
         getExpenses: false,
-        deleteExpense: false
+        deleteExpense: false,
+        downloadExcel: false
     })
 
     const getToken = () => {
@@ -33,6 +34,51 @@ export const GlobalProvider = ({children}) =>{
         // Update global loading state
         setLoading(isLoading);
     }, []);
+
+    const downloadExcel = async () => {
+        const token = getToken();
+        if (!token) {
+            return setError("User not authenticated");
+        }
+        
+        setLoadingState('downloadExcel', true);
+        setError(null);
+        
+        try {
+            const response = await axios.get(`${BASE_URL}download-excel`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                responseType: 'blob' // Important for file download
+            });
+            
+            // Create blob and download
+            const blob = new Blob([response.data], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `finnancy-data-${new Date().toISOString().split('T')[0]}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+        } catch (err) {
+            console.error("Download Excel error:", err);
+            if (err.response) {
+                setError(err.response.data.message || "Failed to download Excel file");
+            } else {
+                setError("Failed to download Excel file");
+            }
+        } finally {
+            setLoadingState('downloadExcel', false);
+        }
+    };
 
     // incomes
     const addIncome = async(income) =>{
@@ -302,6 +348,7 @@ export const GlobalProvider = ({children}) =>{
             error,
             setError,
             ViewHistory,
+            downloadExcel,
             loading: isAnyLoading, // Use computed loading state
             loadingStates // Expose individual loading states
         }}>

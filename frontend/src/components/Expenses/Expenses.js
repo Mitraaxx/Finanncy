@@ -100,7 +100,7 @@ const ExpenseStyled = styled.div`
     .income-content{
         display: flex;
         gap: 2rem;
-        height: calc(100vh - 250px); // Increased height to cover more space
+        height: calc((100vh - 180px) / 0.71); // Adjusted for zoom: 0.71 in InnerLayout
         
         .form-container {
             overflow: visible; // Remove scroll from form

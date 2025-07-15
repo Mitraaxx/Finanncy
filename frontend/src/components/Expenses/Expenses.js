@@ -149,57 +149,61 @@ const ExpenseStyled = styled.div`
             /* Apply scrollbar styling at all screen sizes */
             @media (max-width: 768px) {
                 .incomes {
+                    /* Force custom scrollbar on mobile */
                     &::-webkit-scrollbar {
-                        width: 8px;
+                        width: 8px !important;
+                        -webkit-appearance: none !important;
                     }
                     
                     &::-webkit-scrollbar-track {
-                        background: #f1f1f1;
-                        border-radius: 10px;
+                        background: #f1f1f1 !important;
+                        border-radius: 10px !important;
                     }
                     
                     &::-webkit-scrollbar-thumb {
-                        background: var(--color-delete);
-                        border-radius: 10px;
-                        opacity: 0.7;
+                        background: var(--color-delete) !important;
+                        border-radius: 10px !important;
+                        opacity: 0.7 !important;
                     }
                     
                     &::-webkit-scrollbar-thumb:hover {
-                        background: var(--color-delete);
-                        opacity: 1;
+                        background: var(--color-delete) !important;
+                        opacity: 1 !important;
                     }
                     
                     /* Firefox scrollbar styling */
-                    scrollbar-width: thin;
-                    scrollbar-color: var(--color-delete) #f1f1f1;
+                    scrollbar-width: thin !important;
+                    scrollbar-color: var(--color-delete) #f1f1f1 !important;
                 }
             }
             
             @media (max-width: 480px) {
                 .incomes {
+                    /* Force custom scrollbar on mobile */
                     &::-webkit-scrollbar {
-                        width: 8px;
+                        width: 8px !important;
+                        -webkit-appearance: none !important;
                     }
                     
                     &::-webkit-scrollbar-track {
-                        background: #f1f1f1;
-                        border-radius: 10px;
+                        background: #f1f1f1 !important;
+                        border-radius: 10px !important;
                     }
                     
                     &::-webkit-scrollbar-thumb {
-                        background: var(--color-delete);
-                        border-radius: 10px;
-                        opacity: 0.7;
+                        background: var(--color-delete) !important;
+                        border-radius: 10px !important;
+                        opacity: 0.7 !important;
                     }
                     
                     &::-webkit-scrollbar-thumb:hover {
-                        background: var(--color-delete);
-                        opacity: 1;
+                        background: var(--color-delete) !important;
+                        opacity: 1 !important;
                     }
                     
                     /* Firefox scrollbar styling */
-                    scrollbar-width: thin;
-                    scrollbar-color: var(--color-delete) #f1f1f1;
+                    scrollbar-width: thin !important;
+                    scrollbar-color: var(--color-delete) #f1f1f1 !important;
                 }
             }
         }

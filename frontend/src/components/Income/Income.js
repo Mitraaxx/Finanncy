@@ -95,6 +95,33 @@ const IncomeStyled = styled.div`
             }
         }
     }
+    
+    /* Custom scrollbar styling to match theme - applies to all screen sizes */
+    .incomes-container .incomes::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .incomes-container .incomes::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .incomes-container .incomes::-webkit-scrollbar-thumb {
+        background: var(--color-green);
+        border-radius: 10px;
+        opacity: 0.7;
+    }
+    
+    .incomes-container .incomes::-webkit-scrollbar-thumb:hover {
+        background: var(--color-green);
+        opacity: 1;
+    }
+    
+    /* Firefox scrollbar styling */
+    .incomes-container .incomes {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-green) #f1f1f1;
+    }
          
     .income-content{
         display: flex;
@@ -118,31 +145,6 @@ const IncomeStyled = styled.div`
                 height: 100%;
                 overflow-y: auto;
                 padding-right: 0.5rem;
-                
-                /* Custom scrollbar styling to match theme */
-                &::-webkit-scrollbar {
-                    width: 8px;
-                }
-                
-                &::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                    border-radius: 10px;
-                }
-                
-                &::-webkit-scrollbar-thumb {
-                    background: var(--color-green);
-                    border-radius: 10px;
-                    opacity: 0.7;
-                }
-                
-                &::-webkit-scrollbar-thumb:hover {
-                    background: var(--color-green);
-                    opacity: 1;
-                }
-                
-                /* Firefox scrollbar styling */
-                scrollbar-width: thin;
-                scrollbar-color: var(--color-green) #f1f1f1;
             }
         }
                  

@@ -6,41 +6,42 @@ import Form from '../Form/Form';
 import IncomeItems from '../IncomeItems/IncomeItems';
 
 function Income() {
-
-  const {addIncome,incomes,getIncomes,deleteIncome, totalIncome} = useGlobalContext()
-
-  useEffect(() =>{
+   const {addIncome,incomes,getIncomes,deleteIncome, totalIncome} = useGlobalContext()
+   useEffect(() =>{
     getIncomes()
   },[])
 
-  return (
+  // Sort incomes by date (newest first)
+  const sortedIncomes = [...incomes].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+   return (
     <IncomeStyled>
         <InnerLayout>
-              <h1>Incomes</h1>  
-              <h2 className='total-income'>Total Income: <span>&#8377;{totalIncome()}</span></h2> 
-              <div className='income-content'>
+              <h1>Incomes</h1>
+                <h2 className='total-income'>Total Income: <span>&#8377;{totalIncome()}</span></h2>
+               <div className='income-content'>
                 <div className='form-container'>
                   <Form/>
                 </div>
                 <div className='incomes'>
-                    {incomes.map(income=>{
+                    {sortedIncomes.map(income=>{
                       const {_id, title, amount, date, category, description,type} = income;
                       return <IncomeItems
                           key={_id}
-                          id={_id} 
-                          title={title} 
-                          description={description} 
-                          amount={amount} 
-                          date={date} 
-                          type={type}
-                          category={category} 
-                          indicatorColor="var(--color-green)"
+                          id={_id}
+                           title={title}
+                           description={description}
+                           amount={amount}
+                           date={date}
+                           type={type}
+                          category={category}
+                           indicatorColor="var(--color-green)"
                           deleteItem={deleteIncome}
                       />
                     })}
                 </div>
-                </div>   
-        </InnerLayout>
+                </div>
+           </InnerLayout>
     </IncomeStyled>
   )
 }
@@ -48,7 +49,7 @@ function Income() {
 const IncomeStyled = styled.div`
     display: flex;
     overflow: auto;
-    
+        
     .total-income{
         display: flex;
         justify-content: center;
@@ -91,7 +92,7 @@ const IncomeStyled = styled.div`
                 font-size: 1.5rem;
             }
         }
-    }  
+    }
     
     .income-content{
         display: flex;

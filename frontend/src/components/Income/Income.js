@@ -99,7 +99,11 @@ const IncomeStyled = styled.div`
     .income-content{
         display: flex;
         gap: 2rem;
-        height: calc(100vh - 200px); // Adjust based on your header/total height
+        height: calc(100vh - 250px); // Increased height to cover more space
+        
+        .form-container {
+            overflow: visible; // Remove scroll from form
+        }
                  
         .incomes-container{
             flex: 1;
@@ -148,7 +152,7 @@ const IncomeStyled = styled.div`
             height: auto;
             
             .incomes-container {
-                height: 400px; // Fixed height for mobile
+                height: 500px; // Increased height for mobile
             }
         }
                  
@@ -156,7 +160,7 @@ const IncomeStyled = styled.div`
             gap: 1rem;
             
             .incomes-container {
-                height: 350px; // Smaller height for very small screens
+                height: 450px; // Increased height for very small screens
                 padding: 0.75rem;
                 border-radius: 15px;
             }

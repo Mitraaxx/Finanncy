@@ -126,7 +126,7 @@ const ExpenseStyled = styled.div`
                 }
                 
                 &::-webkit-scrollbar-track {
-                    background: #f1f1f1;
+                    background: var(--color-delete);
                     border-radius: 10px;
                 }
                 

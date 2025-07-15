@@ -126,7 +126,7 @@ const ExpenseStyled = styled.div`
                 }
                 
                 &::-webkit-scrollbar-track {
-                    background: #f1f1f1;
+                    background: #FCF6F9;
                     border-radius: 10px;
                 }
                 
@@ -143,7 +143,7 @@ const ExpenseStyled = styled.div`
                 
                 /* Firefox scrollbar styling */
                 scrollbar-width: thin;
-                scrollbar-color: var(--color-delete) #f1f1f1;
+                scrollbar-color: var(--color-delete) #FCF6F9;
             }
             
             /* Apply scrollbar styling at all screen sizes */
@@ -156,7 +156,7 @@ const ExpenseStyled = styled.div`
                     }
                     
                     &::-webkit-scrollbar-track {
-                        background: #f1f1f1 !important;
+                        background: #FCF6F9 !important;
                         border-radius: 10px !important;
                     }
                     
@@ -173,7 +173,7 @@ const ExpenseStyled = styled.div`
                     
                     /* Firefox scrollbar styling */
                     scrollbar-width: thin !important;
-                    scrollbar-color: var(--color-delete) #f1f1f1 !important;
+                    scrollbar-color: var(--color-delete) #FCF6F9 !important;
                 }
             }
             
@@ -186,7 +186,7 @@ const ExpenseStyled = styled.div`
                     }
                     
                     &::-webkit-scrollbar-track {
-                        background: #f1f1f1 !important;
+                        background: #FCF6F9 !important;
                         border-radius: 10px !important;
                     }
                     
@@ -203,31 +203,10 @@ const ExpenseStyled = styled.div`
                     
                     /* Firefox scrollbar styling */
                     scrollbar-width: thin !important;
-                    scrollbar-color: var(--color-delete) #f1f1f1 !important;
+                    scrollbar-color: var(--color-delete) #FCF6F9 !important;
                 }
             }
         }
-                 
-        @media (max-width: 768px) {
-            gap: 1.5rem;
-            flex-direction: column;
-            height: auto;
-            
-            .incomes-container {
-                height: 500px; // Increased height for mobile
-            }
-        }
-                 
-        @media (max-width: 480px) {
-            gap: 1rem;
-            
-            .incomes-container {
-                height: 450px; // Increased height for very small screens
-                padding: 0.75rem;
-                border-radius: 15px;
-            }
-        }
-    }
          
     @media (max-width: 768px) {
         flex-direction: column;

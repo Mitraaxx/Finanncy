@@ -126,7 +126,7 @@ const ExpenseStyled = styled.div`
                 }
                 
                 &::-webkit-scrollbar-track {
-                    background: var(--color-delete);
+                    background: #f1f1f1;
                     border-radius: 10px;
                 }
                 
@@ -143,7 +143,7 @@ const ExpenseStyled = styled.div`
                 
                 /* Firefox scrollbar styling */
                 scrollbar-width: thin;
-                scrollbar-color: var(--color-delete);
+                scrollbar-color: var(--color-delete) #f1f1f1;
             }
         }
                  

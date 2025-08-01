@@ -3,6 +3,17 @@ const ExcelJS = require('exceljs');
 const Income = require('../models/IncomeModels');
 const Expense = require('../models/ExpenseModels');
 
+// Helper function to format date safely
+const formatDateForExcel = (date) => {
+  if (!date) return '';
+  const d = new Date(date);
+  // Format as DD/MM/YYYY string to avoid timezone issues
+  const day = d.getDate().toString().padStart(2, '0');
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 const downloadExcel = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -51,19 +62,16 @@ const downloadExcel = async (req, res) => {
       };
     });
 
-    // Add income data - pass Date objects directly
+    // Add income data - format dates as strings
     incomes.forEach((income) => {
       incomeSheet.addRow({
-        date: income.date,     // <-- Pass Date object directly here
+        date: formatDateForExcel(income.date), // <-- Format date as string
         title: income.title,
         category: income.category,
         amount: income.amount,
         description: income.description
       });
     });
-
-    // Format date column as dd/mm/yyyy
-    incomeSheet.getColumn('date').numFmt = 'dd/mm/yyyy';
 
     // Format income amount column as currency
     incomeSheet.getColumn('amount').numFmt = '"Rs "#,##0';
@@ -120,19 +128,16 @@ const downloadExcel = async (req, res) => {
       };
     });
 
-    // Add expense data - pass Date objects directly
+    // Add expense data - format dates as strings
     expenses.forEach((expense) => {
       expenseSheet.addRow({
-        date: expense.date,   // <-- Pass Date object directly here
+        date: formatDateForExcel(expense.date), // <-- Format date as string
         title: expense.title,
         category: expense.category,
         amount: expense.amount,
         description: expense.description
       });
     });
-
-    // Format date column as dd/mm/yyyy
-    expenseSheet.getColumn('date').numFmt = 'dd/mm/yyyy';
 
     // Format expense amount column as currency
     expenseSheet.getColumn('amount').numFmt = '"Rs "#,##0';

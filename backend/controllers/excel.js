@@ -3,14 +3,11 @@ const ExcelJS = require('exceljs');
 const Income = require('../models/IncomeModels');
 const Expense = require('../models/ExpenseModels');
 
-// Helper function to format date safely
-const formatDateForExcel = (date) => {
-  if (!date) return '';
-  const d = new Date(date);
-  // Format as DD/MM/YYYY string to avoid timezone issues
-  const day = d.getDate().toString().padStart(2, '0');
-  const month = (d.getMonth() + 1).toString().padStart(2, '0');
-  const year = d.getFullYear();
+// Helper function to format date as DD/MM/YYYY
+const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 };
 
@@ -62,10 +59,10 @@ const downloadExcel = async (req, res) => {
       };
     });
 
-    // Add income data - format dates as strings
+    // Add income data
     incomes.forEach((income) => {
       incomeSheet.addRow({
-        date: formatDateForExcel(income.date), // <-- Format date as string
+        date: formatDate(income.date),
         title: income.title,
         category: income.category,
         amount: income.amount,
@@ -87,7 +84,7 @@ const downloadExcel = async (req, res) => {
       });
       totalIncomeRow.eachCell((cell, colNumber) => {
         cell.font = { bold: true };
-        if (colNumber === 2 || colNumber === 4) {
+        if (colNumber === 2 || colNumber === 4) { // Title and Amount columns
           cell.fill = {
             type: 'pattern',
             pattern: 'solid',
@@ -128,10 +125,10 @@ const downloadExcel = async (req, res) => {
       };
     });
 
-    // Add expense data - format dates as strings
+    // Add expense data
     expenses.forEach((expense) => {
       expenseSheet.addRow({
-        date: formatDateForExcel(expense.date), // <-- Format date as string
+        date: formatDate(expense.date),
         title: expense.title,
         category: expense.category,
         amount: expense.amount,
@@ -153,7 +150,7 @@ const downloadExcel = async (req, res) => {
       });
       totalExpenseRow.eachCell((cell, colNumber) => {
         cell.font = { bold: true };
-        if (colNumber === 2 || colNumber === 4) {
+        if (colNumber === 2 || colNumber === 4) { // Title and Amount columns
           cell.fill = {
             type: 'pattern',
             pattern: 'solid',

@@ -53,7 +53,7 @@ const downloadExcel = async (req, res) => {
         // Add income data
         incomes.forEach((income) => {
             incomeSheet.addRow({
-                date: income.date.toLocaleDateString(),
+                date: income.date.toLocaleDateString('en-GB'),
                 title: income.title,
                 category: income.category,
                 amount: income.amount,
@@ -120,7 +120,7 @@ const downloadExcel = async (req, res) => {
         // Add expense data
         expenses.forEach((expense) => {
             expenseSheet.addRow({
-                date: expense.date.toLocaleDateString(),
+                date: expense.date.toLocaleDateString('en-GB'),
                 title: expense.title,
                 category: expense.category,
                 amount: expense.amount,

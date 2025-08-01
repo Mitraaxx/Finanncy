@@ -3,14 +3,6 @@ const ExcelJS = require('exceljs');
 const Income = require('../models/IncomeModels');
 const Expense = require('../models/ExpenseModels');
 
-// Helper function to format date as DD/MM/YYYY
-const formatDate = (date) => {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-};
-
 const downloadExcel = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -62,7 +54,7 @@ const downloadExcel = async (req, res) => {
     // Add income data
     incomes.forEach((income) => {
       incomeSheet.addRow({
-        date: formatDate(income.date),
+        date: income.date.toLocaleDateString(),
         title: income.title,
         category: income.category,
         amount: income.amount,
@@ -128,7 +120,7 @@ const downloadExcel = async (req, res) => {
     // Add expense data
     expenses.forEach((expense) => {
       expenseSheet.addRow({
-        date: formatDate(expense.date),
+        date: expense.date.toLocaleDateString(),
         title: expense.title,
         category: expense.category,
         amount: expense.amount,

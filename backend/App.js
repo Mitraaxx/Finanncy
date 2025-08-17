@@ -16,9 +16,9 @@ app.use(cors())
 // routes
 readdirSync('./routes').map((route) => app.use('/api/v1', require('./routes/' + route)))
 
-app.get('/', (req, res)=>{
-    res.send('Hello World')
-})
+app.get("/", (req, res) => {
+    res.status(200).send("Server is up and running!");
+});
 
 const server = () => {
     db()

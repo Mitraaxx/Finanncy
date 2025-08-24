@@ -1,27 +1,26 @@
-# Finnancy: Personal Finance Tracker
+Finnancy: Personal Finance Tracker
+<div align="center">
+<img src="frontend/public/financy.png" alt="Finnancy Logo" width="160">
 
-\<div align="center"\>
-
-# Finnancy
-
-\<p\>
+Finnancy
+<p>
 A powerful MERN-stack application for tracking personal income and expenses, helping users manage their financial health with an intuitive and responsive interface.
-\</p\>
+</p>
 
-\<p\>
-\<a href="[https://github.com/Mitraaxx/finnancy/stargazers](https://github.com/Mitraaxx/finnancy/stargazers)"\>\<img src="[https://img.shields.io/github/stars/Mitraaxx/finnancy?style=for-the-badge\&logo=github\&color=FFC107](https://img.shields.io/github/stars/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=FFC107)" alt="Stars"\>\</a\>
-\<a href="[https://github.com/Mitraaxx/finnancy/network/members](https://github.com/Mitraaxx/finnancy/network/members)"\>\<img src="[https://img.shields.io/github/forks/Mitraaxx/finnancy?style=for-the-badge\&logo=github\&color=8BC34A](https://img.shields.io/github/forks/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=8BC34A)" alt="Forks"\>\</a\>
-\<a href="[https://github.com/Mitraaxx/finnancy/issues](https://github.com/Mitraaxx/finnancy/issues)"\>\<img src="[https://img.shields.io/github/issues/Mitraaxx/finnancy?style=for-the-badge\&logo=github\&color=FF5722](https://img.shields.io/github/issues/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=FF5722)" alt="Issues"\>\</a\>
-\</p\>
+<p>
+<a href="https://github.com/Mitraaxx/finnancy/stargazers"><img src="https://img.shields.io/github/stars/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=FFC107" alt="Stars"></a>
+<a href="https://github.com/Mitraaxx/finnancy/network/members"><img src="https://img.shields.io/github/forks/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=8BC34A" alt="Forks"></a>
+<a href="https://github.com/Mitraaxx/finnancy/issues"><img src="https://img.shields.io/github/issues/Mitraaxx/finnancy?style=for-the-badge&logo=github&color=FF5722" alt="Issues"></a>
+</p>
 
-\<p\>
-\<a href="https://fiinance.netlify.app/"\>\<strong\>View Demo\</strong\>\</a\>
+<p>
+<a href="https://fiinance.netlify.app/"><strong>View Demo</strong></a>
 ·
-\<a href="[https://github.com/Mitraaxx/finnancy/issues](https://github.com/Mitraaxx/finnancy/issues)"\>Report Bug\</a\>
+<a href="https://github.com/Mitraaxx/finnancy/issues">Report Bug</a>
 ·
-\<a href="[https://github.com/Mitraaxx/finnancy/issues](https://github.com/Mitraaxx/finnancy/issues)"\>Request Feature\</a\>
-\</p\>
-\</div\>
+<a href="https://github.com/Mitraaxx/finnancy/issues">Request Feature</a>
+</p>
+</div>
 
 ## Overview
 

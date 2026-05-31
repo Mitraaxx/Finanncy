@@ -5,6 +5,7 @@ const { db } = require('./db/db')
 const {readdirSync} = require('fs')
 const { route } = require('./routes/transactions')
 const app = express()
+const { createClient } = require('redis');
 
 const PORT = process.env.PORT
 
@@ -28,3 +29,18 @@ const server = () => {
 }
 
 server()
+
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+});
+
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+
+async function connectRedis() {
+  await redisClient.connect();
+  console.log('Cloud Redis connected');
+}
+
+connectRedis();
+
+module.exports = redisClient;

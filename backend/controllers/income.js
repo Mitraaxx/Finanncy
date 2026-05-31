@@ -1,5 +1,5 @@
 const IncomeSchema = require("../models/IncomeModels")
-const redisClient = require("../App");
+const { deleteCache, getCache, setCache } = require("../db/redisClient");
 
 exports.addIncome = async(req, res) => {
     const {title, amount, category, description, date} = req.body
@@ -29,7 +29,7 @@ exports.addIncome = async(req, res) => {
         }
         
         await income.save();
-        await redisClient.del(`income:${req.user._id}`);
+        await deleteCache(`incomes:${req.user._id}`);
         res.status(200).json({message: 'Income Added'})
     } catch(error) {
         console.error("Add income error:", error);
@@ -42,13 +42,13 @@ exports.getIncome = async (req, res) => {
         const userId = req.user._id; 
 
         const cacheKey = `incomes:${userId}`;
-        const cached = await redisClient.get(cacheKey);
+        const cached = await getCache(cacheKey);
         if (cached) {
             return res.status(200).json(JSON.parse(cached));
         }
 
         const incomes = await IncomeSchema.find({ userId }).sort({ createdAt: -1 })
-        await redisClient.setEx(cacheKey, 300, JSON.stringify(incomes));
+        await setCache(cacheKey, 300, JSON.stringify(incomes));
 
         res.status(200).json(incomes)
     } catch (error) {
@@ -67,7 +67,7 @@ exports.deleteIncome = async (req, res) => {
         if (!income) {
             return res.status(404).json({ message: 'Income not found or does not belong to the user' });
         }
-        await redisClient.del(`income:${req.user._id}`);
+        await deleteCache(`incomes:${req.user._id}`);
         res.status(200).json({message: 'Income Deleted'})
     } catch(err) {
         console.error("Delete income error:", err);

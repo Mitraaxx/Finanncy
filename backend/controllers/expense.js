@@ -1,5 +1,5 @@
 const ExpenseSchema = require("../models/ExpenseModels")
-const redisClient = require("../App");
+const { deleteCache, getCache, setCache } = require("../db/redisClient");
 
 exports.addExpense = async(req, res) => {
     const { title, amount, category, description, date } = req.body
@@ -29,7 +29,7 @@ exports.addExpense = async(req, res) => {
         }
         
         await expense.save()
-        await redisClient.del(`expense:${userId}`);
+        await deleteCache(`expense:${userId}`);
         res.status(200).json({message: 'Expense Added'})
     } catch(error) {
         console.error("Add expense error:", error);
@@ -42,13 +42,13 @@ exports.getExpense = async(req, res) => {
         const userId = req.user._id; // Access _id from the user object
 
         const cacheKey = `expense:${userId}`
-        const cached = await redisClient.get(cacheKey)
+        const cached = await getCache(cacheKey)
         if(cached){
             return res.status(200).json(JSON.parse(cached))
         }
 
         const expenses = await ExpenseSchema.find({ userId }).sort({ createdAt: -1 }) // Filter by user ID
-        await redisClient.setEx(cacheKey, 300, JSON.stringify(expenses));
+        await setCache(cacheKey, 300, JSON.stringify(expenses));
 
         res.status(200).json(expenses)
     } catch(error) {
@@ -68,7 +68,7 @@ exports.deleteExpense = async (req, res) => {
             return res.status(404).json({ message: 'Expense not found or does not belong to the user' });
         }
         
-        await redisClient.del(`expense:${userId}`);
+        await deleteCache(`expense:${userId}`);
         res.status(200).json({message: 'Expense Deleted'})
     } catch(err) {
         console.error("Delete expense error:", err);

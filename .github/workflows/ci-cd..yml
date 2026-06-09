@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm' # for not downloading dependencies again and again 
 
       # --- STEP 1: FRONTEND BUILD AUTOMATION ---
       - name: Install Frontend Dependencies & Build

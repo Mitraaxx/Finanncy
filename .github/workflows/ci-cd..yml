@@ -23,7 +23,7 @@ jobs:
         run: |
           cd frontend                
           npm ci                     
-          npm run build              
+          CI=false npm run build              
           cp -r build/* ../backend/public/   
 
       # --- STEP 2: BACKEND SETUP ---

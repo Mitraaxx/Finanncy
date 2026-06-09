@@ -5,10 +5,6 @@ on:
     branches:
       - master
 
-  pull_request:
-    branches:
-      - master
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -21,11 +17,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'npm' # for not downloading dependencies again and again 
 
+      # --- STEP 1: FRONTEND BUILD AUTOMATION ---
+      - name: Install Frontend Dependencies & Build
+        run: |
+          cd frontend                
+          npm ci                     
+          npm run build              
+          cp -r build/* ../backend/public/   
+
+      # --- STEP 2: BACKEND SETUP ---
       - name: Install Backend Dependencies
         working-directory: ./backend
         run: npm ci
 
+      # --- STEP 3: CYPRESS AUTOMATED TESTS ---
       - name: Run Tests
         run: echo "No tests configured"
 

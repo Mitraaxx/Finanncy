@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../Loading';
 import { InnerLayout } from '../../styles/Layouts';
+import API_BASE_URL from '../../utils/apiBase';
 
 
 function Register() {
@@ -51,7 +52,7 @@ function Register() {
         
         try {
             // Make sure we're using the correct API endpoint
-            const response = await axios.post('https://finanncy.onrender.com/api/v1/register', formData);
+            const response = await axios.post(`${API_BASE_URL}/register`, formData);
             console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to login page after successful registration
         } catch (error) {

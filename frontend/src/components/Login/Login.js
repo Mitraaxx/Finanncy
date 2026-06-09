@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../Loading';
 import { InnerLayout } from '../../styles/Layouts';
+import API_BASE_URL from '../../utils/apiBase';
 
 
 function Login({ setIsAuthenticated }) {
@@ -27,7 +28,7 @@ function Login({ setIsAuthenticated }) {
         setLoading(true);
         
         try {
-            const response = await axios.post('https://finanncy.onrender.com/api/v1/login', formData);
+            const response = await axios.post(`${API_BASE_URL}/login`, formData);
             localStorage.setItem('token', response.data.token);
             
             // Store the username from the form in localStorage

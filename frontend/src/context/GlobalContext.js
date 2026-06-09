@@ -1,7 +1,8 @@
 import React, {useContext, useState, useCallback} from "react";
 import axios from 'axios'
+import API_BASE_URL from '../utils/apiBase'
 
-const BASE_URL = "https://finanncy.onrender.com/api/v1/";
+const BASE_URL = API_BASE_URL;
 
 const GlobalContext = React.createContext()
 
@@ -45,7 +46,7 @@ export const GlobalProvider = ({children}) =>{
         setError(null);
         
         try {
-            const response = await axios.get(`${BASE_URL}download-excel`, {
+            const response = await axios.get(`${BASE_URL}/download-excel`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
@@ -91,7 +92,7 @@ export const GlobalProvider = ({children}) =>{
         try {
             console.log("Adding income with data:", income);
             console.log("Using token:", token);
-            const response = await axios.post(`${BASE_URL}add-income`, income, {
+            const response = await axios.post(`${BASE_URL}/add-income`, income, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -131,7 +132,7 @@ export const GlobalProvider = ({children}) =>{
         
         try {
             console.log("Fetching incomes with token:", token);
-            const response = await axios.get(`${BASE_URL}get-income`, {
+            const response = await axios.get(`${BASE_URL}/get-income`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -168,7 +169,7 @@ export const GlobalProvider = ({children}) =>{
         try {
             console.log("Deleting income with ID:", id);
             console.log("Using token:", token);
-            const response = await axios.delete(`${BASE_URL}delete-income/${id}`, {
+            const response = await axios.delete(`${BASE_URL}/delete-income/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -217,7 +218,7 @@ export const GlobalProvider = ({children}) =>{
         try {
             console.log("Adding expense with data:", expense);
             console.log("Using token:", token);
-            const response = await axios.post(`${BASE_URL}add-expense`, expense, {
+            const response = await axios.post(`${BASE_URL}/add-expense`, expense, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -255,7 +256,7 @@ export const GlobalProvider = ({children}) =>{
         setError(null); // Clear previous errors
         
         try {
-            const response = await axios.get(`${BASE_URL}get-expense`, {
+            const response = await axios.get(`${BASE_URL}/get-expense`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

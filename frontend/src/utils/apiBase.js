@@ -1,3 +1,3 @@
-const API_BASE_URL = (process.env.REACT_APP_API_URL || '/api/v1/').replace(/\/$/, '');
+const API_BASE_URL = (process.env.REACT_APP_API_URL || '/api/v1').replace(/\/$/, '');
 
 export default API_BASE_URL;

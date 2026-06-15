@@ -280,7 +280,7 @@ export const GlobalProvider = ({children}) =>{
         setError(null); // Clear previous errors
         
         try {
-            await axios.delete(`${BASE_URL}delete-expense/${id}`, {
+            await axios.delete(`${BASE_URL}/delete-expense/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
